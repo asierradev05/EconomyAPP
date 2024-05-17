@@ -7,7 +7,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    // Aquí puedes agregar la lógica para autenticar al usuario
+   
     console.log('Email:', email);
     console.log('Contraseña:', password);
   };
@@ -16,16 +16,16 @@ const LoginScreen = () => {
     <View style={styles.container}>
       {/* Aplicamos el estilo `logo` a la imagen */}
       <Image source={require('../../assets/images/LogoEconomy.png')} style={styles.logo} /> 
-      <Text style={styles.title}>Iniciar sesión</Text>
+      <Text style={styles.title}>Welcome To EconomyAPP</Text>
       <TextInput
         style={styles.input}
-        placeholder="Correo electrónico"
+        placeholder="Email"
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
         style={styles.input}
-        placeholder="Contraseña"
+        placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry={true}
