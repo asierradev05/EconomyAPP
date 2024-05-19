@@ -48,7 +48,6 @@ const Cryptos = ({ navigation }) => {
     // Si el usuario ha hecho scroll hacia arriba y ha llegado al principio de la lista, mostramos el campo de búsqueda
     setSearchVisible(currentOffset <= 0);
   };
-
   const renderHeader = () => (
     <View style={styles.header}>
       <TouchableOpacity
@@ -61,10 +60,8 @@ const Cryptos = ({ navigation }) => {
         <Text style={styles.title}>Cryptos
             <Text> </Text>
         </Text>
-        
         <Text style={styles.subtitle}>The last prices in the Crypto Market
         </Text>
-        
       </View>
     </View>
   );

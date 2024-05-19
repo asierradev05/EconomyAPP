@@ -26,7 +26,7 @@ const App = () => {
         }}
         initialRouteName="home"
       >
-        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="home" component={Cryptos} />
       </Stack.Navigator>
     </NavigationContainer>
   );
