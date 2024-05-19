@@ -16,20 +16,31 @@ const Cryptos = () => {
   const [search, setSearch] = useState("");
 
   const loadData = async () => {
+    console.log("Starting data load");
     try {
       const res = await fetch(
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page"
       );
+
+      console.log("Response received:");
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+
       const data = await res.json();
+       
+        console.log("Data received from");
+        console.log( "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page")
+        console.log("Feching the data sucesfull")
       setCoins(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  
 
   useEffect(() => {
-    loadData();
+    loadData(); 
   }, []);
 
   return (
@@ -50,11 +61,12 @@ const Cryptos = () => {
         style={styles.list}
         data={coins.filter(
           (coin) =>
-            coin.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
-            coin.symbol.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+            coin.name.toLowerCase().includes(search.toLowerCase()) ||
+            coin.symbol.toLowerCase().includes(search.toLowerCase())
         )}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => <CoinItem coin={item} />}
+        keyExtractor={(item) => item.id}
         refreshing={refreshing}
         onRefresh={async () => {
           setRefreshing(true);

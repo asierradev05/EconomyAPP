@@ -4,6 +4,8 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "./App/Screens/home";
+import { Cryptos } from "./constants/icons";
+
 
 const theme = {
   ...DefaultTheme,
@@ -24,7 +26,7 @@ const App = () => {
         }}
         initialRouteName="home"
       >
-        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="home" component={Cryptos} />
       </Stack.Navigator>
     </NavigationContainer>
   );
