@@ -45,7 +45,6 @@ const Cryptos = ({ navigation }) => {
 
   const handleScroll = (event) => {
     const currentOffset = event.nativeEvent.contentOffset.y;
-
     // Si el usuario ha hecho scroll hacia arriba y ha llegado al principio de la lista, mostramos el campo de búsqueda
     setSearchVisible(currentOffset <= 0);
   };
@@ -59,19 +58,14 @@ const Cryptos = ({ navigation }) => {
         <Ionicons name="arrow-back" size={24} color="#fff" />
       </TouchableOpacity>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Cryptos</Text>
-        <Text style={styles.subtitle}>The last prices in the Crypto Market</Text>
+        <Text style={styles.title}>Cryptos
+            <Text> </Text>
+        </Text>
+        
+        <Text style={styles.subtitle}>The last prices in the Crypto Market
+        </Text>
+        
       </View>
-      {searchVisible && ( // Mostrar el campo de búsqueda solo cuando es visible
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search a Coin"
-            placeholderTextColor="#858585"
-            onChangeText={(text) => setSearch(text)}
-          />
-        </View>
-      )}
     </View>
   );
 
@@ -83,6 +77,17 @@ const Cryptos = ({ navigation }) => {
       <StatusBar backgroundColor="#0A1931" />
 
       {renderHeader()}
+
+      {searchVisible && ( // Mostrar el campo de búsqueda solo cuando es visible
+        <View style={styles.searchContainer}>
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search a Coin"
+            placeholderTextColor="#858585"
+            onChangeText={(text) => setSearch(text)}
+          />
+        </View>
+      )}
 
       <FlatList
         style={styles.list}
@@ -124,7 +129,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1,
-    marginRight: 'auto', // Mueve el contenedor de título a la izquierda
+    marginLeft: 10,
   },
   title: {
     fontSize: 24,
@@ -138,11 +143,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   searchContainer: {
+    width: "100%",
     paddingHorizontal: 20,
     marginBottom: 10,
   },
   searchInput: {
-    width: 140, // Ajusta el ancho del campo de búsqueda según sea necesario
+    width: "100%",
     color: "#fff",
     backgroundColor: "#1E2749",
     borderColor: "#1E2749",
