@@ -1,8 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 const CoinItem = ({ coin }) => (
-  <View style={styles.containerItem}>
+  <TouchableOpacity style={styles.containerItem} activeOpacity={0.7}>
     <View style={styles.coinName}>
       <Image source={{ uri: coin.image }} style={styles.image} />
       <View style={styles.containerNames}>
@@ -23,27 +23,32 @@ const CoinItem = ({ coin }) => (
         {coin.price_change_percentage_24h.toFixed(2)}%
       </Text>
     </View>
-  </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   containerItem: {
-    backgroundColor: "#121212",
-    paddingTop: 10,
+    paddingVertical: 9,
+    paddingHorizontal: 15,
     flexDirection: "row",
     justifyContent: "space-between",
+    borderRadius: 15,
+    marginBottom: 10,
+    backgroundColor: "linear-gradient(to right, #fff, rgba(255, 255, 255, 0.7))", // Fondo con degradado
   },
   containerNames: {
     marginLeft: 10,
   },
   coinName: {
     flexDirection: "row",
+    alignItems: "center",
   },
   text: {
-    color: "#fff",
+    color: "#000",
+    fontWeight: "bold",
   },
   textPrice: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold",
   },
   pricePercentage: {
