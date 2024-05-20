@@ -37,8 +37,9 @@ const Cryptos = ({ navigation }) => {
       }
 
       const data = await res.json();
-      console.log("Data received:", data);
+      console.log("Data received:");
       setCoins(data);
+      console.log("The data fetch sucessufly")
     } catch (error) {
       console.error("Error fetching data:", error);
     }
