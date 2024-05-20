@@ -11,6 +11,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native';
 import CoinItem from "../../components/CoinItem";
+import { useNavigation } from "@react-navigation/native";
 
 const Cryptos = ({ navigation }) => {
   const [coins, setCoins] = useState([]);
@@ -29,7 +30,7 @@ const Cryptos = ({ navigation }) => {
         "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
       );
 
-      console.log("Response received:", res);
+      console.log("Response received:");
 
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
