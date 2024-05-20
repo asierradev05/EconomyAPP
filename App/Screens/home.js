@@ -11,6 +11,11 @@ const IndexScreen = () => {
     navigation.navigate('cryptosIndex');
   };
 
+  const NavigateToProfile = () => {
+    navigation.navigate('UserScreen');
+  };
+
+
   return (
     <View style={styles.container}>
       <LinearGradient colors={['#1E2749', '#283C63']} style={styles.header}>
@@ -68,7 +73,7 @@ const IndexScreen = () => {
           <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Inversions</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
+        <TouchableOpacity style={styles.navButton} onPress={NavigateToProfile}>
           <Ionicons name="person-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
