@@ -2,9 +2,19 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-
+import { useNavigation } from "@react-navigation/native";
 
 const IndexScreen = () => {
+  const navigation = useNavigation();
+
+  const navigateToCryptos = () => {
+    navigation.navigate('cryptosIndex');
+  };
+
+  const navigateToProfile = () => {
+    navigation.navigate('UserScreen');
+  };
+
   return (
     <View style={styles.container}>
       <LinearGradient colors={['#1E2749', '#283C63']} style={styles.header}>
@@ -20,7 +30,7 @@ const IndexScreen = () => {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.learningContainer}>
           <View style={styles.learningTextContainer}>
-            <Text style={styles.learningText}>Start Learning new Staff</Text>
+            <Text style={styles.learningText}>Start Learning new Stuff</Text>
             <View style={styles.categoriesContainer}>
               <Text style={styles.categoriesText}>Categories</Text>
               <TouchableOpacity style={styles.categoriesButton}>
@@ -34,9 +44,12 @@ const IndexScreen = () => {
         <View style={styles.cardContainer}>
           <View style={styles.card}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={styles.cardTextContainer}>
-                <Text style={styles.cardTitle}>Cryptos</Text>
-                <Text style={styles.cardDescription}>Check The Latest Cryptos!         </Text>
+              <View>
+                <TouchableOpacity style={styles.cardTextContainer} onPress={navigateToCryptos}>
+                  <Ionicons name="list-outline" size={24} color="#CCCCCC" />
+                  <Text style={styles.cardTitle}>Cryptos</Text>
+                  <Text style={styles.cardDescription}>Check The Latest Cryptos!</Text>
+                </TouchableOpacity>
               </View>
               <Image source={require('../../assets/images/CryptoLogo.png')} style={styles.utilityImage} />
             </View>
@@ -45,7 +58,7 @@ const IndexScreen = () => {
             <Image source={require('../../assets/images/WalletLogo.png')} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Your Wallet</Text>
-              <Text style={styles.cardDescription}>Check Your Finance </Text>
+              <Text style={styles.cardDescription}>Check Your Finance</Text>
             </View>
           </View>
         </View>
@@ -59,7 +72,7 @@ const IndexScreen = () => {
           <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Inversions</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
+        <TouchableOpacity style={styles.navButton} onPress={navigateToProfile}>
           <Ionicons name="person-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
@@ -85,13 +98,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFFFFF',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   questionText: {
     fontSize: 18,
     color: '#CCCCCC',
     marginTop: 5,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   searchContainer: {
     flexDirection: 'row',
@@ -149,10 +162,6 @@ const styles = StyleSheet.create({
     height: 100,
     marginLeft: 20,
   },
-  learningImageItems: {
-    width: 60,
-    height: 60,
-  },
   utilitiesTitle: {
     fontSize: 22,
     fontWeight: 'bold',
@@ -169,9 +178,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 20,
     marginTop: 10,
-    justifyContent: 'space-between', // Añadido para alinear elementos a los extremos
+    justifyContent: 'space-between',
   },
-  
   utilityImage: {
     width: 100,
     height: 100,
@@ -188,7 +196,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#1E2749',
     marginTop: 5,
-    
   },
   navbar: {
     flexDirection: 'row',
