@@ -34,6 +34,7 @@ const App = () => {
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="UserScreen" component={UserScreen} />
       </Stack.Navigator>
+      
     </NavigationContainer>
   );
 };
