@@ -3,9 +3,11 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "./App/Screens/home";
-import { Cryptos, index } from "./constants/icons";
-import RegisterScreen from "./App/Screens/RegisterScreen";
+import CryptosScreen from "./App/Screens/cryptos";
+import IndexScreen from "./App/Screens";
+import UserScreen from "./App/Screens/user";
 
+import RegisterScreen from "./App/Screens/RegisterScreen";
 
 const theme = {
   ...DefaultTheme,
@@ -24,14 +26,13 @@ const App = () => {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="home"
+        initialRouteName="Home"
       >
-        <Stack.Screen name="home" component={Home} />
-        <Stack.Screen name="index" component={index}/>
-        <Stack.Screen name="cryptosIndex" component={Cryptos}/>
-        <Stack.Screen name="RegisterIndex" component={RegisterScreen}/>
-
-
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="IndexScreen" component={IndexScreen} />
+        <Stack.Screen name="cryptosIndex" component={CryptosScreen} />
+        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        <Stack.Screen name="UserScreen" component={UserScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
