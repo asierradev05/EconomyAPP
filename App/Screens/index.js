@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView 
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
+
 const IndexScreen = () => {
   return (
     <View style={styles.container}>
@@ -55,11 +56,11 @@ const IndexScreen = () => {
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="stats-chart-outline" size={28} color="#CCCCCC" />
+          <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Inversions</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="person-outline" size={28} color="#CCCCCC" />
+          <Ionicons name="person-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
       </View>
@@ -70,7 +71,7 @@ const IndexScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#fffafa',
   },
   header: {
     paddingTop: 50,
@@ -84,11 +85,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: '#FFFFFF',
     fontWeight: 'bold',
+    textAlign: 'center'
   },
   questionText: {
     fontSize: 18,
     color: '#CCCCCC',
     marginTop: 5,
+    textAlign: 'center'
   },
   searchContainer: {
     flexDirection: 'row',
@@ -200,7 +203,8 @@ const styles = StyleSheet.create({
   },
   navText: {
     fontSize: 12,
-    color: '#1E88E5',
+    fontWeight: 'bold',
+    color: '#1E2749',
   },
 });
 
