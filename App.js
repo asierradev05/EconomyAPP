@@ -8,6 +8,9 @@ import IndexScreen from "./App/Screens";
 import UserScreen from "./App/Screens/user";
 
 import RegisterScreen from "./App/Screens/RegisterScreen";
+import InversionesScreen from "./App/Screens/inversions";
+import InvestmentCoursesScreen from "./App/Screens/HowInvert";
+import WalletScreen from "./App/Screens/Wallet";
 
 const theme = {
   ...DefaultTheme,
@@ -33,6 +36,9 @@ const App = () => {
         <Stack.Screen name="cryptosIndex" component={CryptosScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="UserScreen" component={UserScreen} />
+        <Stack.Screen name="InversionsScreen" component={InversionesScreen} />
+        <Stack.Screen name="InvestmentCoursesScreen" component={InvestmentCoursesScreen} />
+        <Stack.Screen name="WalletScreen" component={WalletScreen} />
       </Stack.Navigator>
       
     </NavigationContainer>
