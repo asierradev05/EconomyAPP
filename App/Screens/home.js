@@ -2,83 +2,115 @@ import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Animated,
+  Easing,
+  StatusBar,
+  Alert
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const IndexScreen = () => {
+import appFirebases from "../../credencials";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+const LoginScreen = (props) => {
+  const auth = getAuth(appFirebases);
   const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [animation] = useState(new Animated.Value(0));
 
-  const navigateToCryptos = () => {
-    navigation.navigate('cryptosIndex');
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  }, [animation]);
+
+  const navigateToRegister = () => {
+    navigation.navigate("RegisterScreen");
   };
 
-  const NavigateToProfile = () => {
-    navigation.navigate('UserScreen');
+  const InicioSesionlogueo = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      Alert.alert("Iniciando sesión", "Ingresando");
+      props.navigation.navigate("Home");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", "Failed to sign in. Please check your credentials and try again.");
+    }
   };
-
 
   return (
-    <View style={styles.container}>
-      <LinearGradient colors={['#1E2749', '#283C63']} style={styles.header}>
-        <Text style={styles.greetingText}>Hi, Angel</Text>
-        <Text style={styles.questionText}>What would you like to learn today?</Text>
-        <View style={styles.searchContainer}>
-          <TextInput style={styles.searchInput} placeholder="Search..." placeholderTextColor="#CCCCCC" />
-          <TouchableOpacity style={styles.searchButton}>
-            <Ionicons name="search-outline" size={24} color="#CCCCCC" />
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.learningContainer}>
-          <View style={styles.learningTextContainer}>
-            <Text style={styles.learningText}>Start Learning new Staff</Text>
-            <View style={styles.categoriesContainer}>
-              <Text style={styles.categoriesText}>Categories</Text>
-              <TouchableOpacity style={styles.categoriesButton}>
-                <Ionicons name="list-outline" size={24} color="#CCCCCC" />
-              </TouchableOpacity>
-            </View>
-          </View>
-          <Image source={require('../../assets/images/ImagenMuchacha.png')} style={styles.learningImage} />
-        </View>
-        <Text style={styles.utilitiesTitle}>Your Utilities</Text>
-        <View style={styles.cardContainer}>
-          <View style={styles.card}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View>
-                <TouchableOpacity style={styles.cardTextContainer} onPress={navigateToCryptos}>
-                  <Ionicons name="list-outline" size={24} color="#CCCCCC" />
-                  <Text style={styles.cardTitle}>Cryptos</Text>
-                  <Text style={styles.cardDescription}>Check The Latest Cryptos!           </Text>
-                </TouchableOpacity>
-              </View>
-              <Image source={require('../../assets/images/CryptoLogo.png')} style={styles.utilityImage} />
-            </View>
-          </View>
-          <View style={styles.card}>
-            <Image source={require('../../assets/images/WalletLogo.png')} style={styles.utilityImage} />
-            <View style={styles.cardTextContainer}>
-              <Text style={styles.cardTitle}>Your Wallet</Text>
-              <Text style={styles.cardDescription}>Check Your Finance</Text>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-      <View style={styles.navbar}>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="home-outline" size={28} color="#1E88E5" />
-          <Text style={styles.navText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
-          <Text style={styles.navText}>Inversions</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} onPress={NavigateToProfile}>
-          <Ionicons name="person-outline" size={28} color="#1E88E5" />
-          <Text style={styles.navText}>Profile</Text>
-        </TouchableOpacity>
+    <LinearGradient colors={["#1E2749", "#283C63"]} style={styles.container}>
+      <StatusBar barStyle="light-content" />
+      <Animated.View
+        style={[styles.logoContainer, { transform: [{ scale: animation }] }]}
+      >
+        <Image
+          source={require("../../assets/images/LogoTrasparente.png")}
+          style={styles.logo}
+        />
+      </Animated.View>
+      <Text style={styles.title}>Welcome To EconomyAPP</Text>
+      <View style={styles.inputContainer}>
+        <Ionicons
+          name="mail-outline"
+          size={24}
+          color="#ccc"
+          style={styles.icon}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#ccc"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
       </View>
-    </View>
+      <View style={styles.inputContainer}>
+        <Ionicons
+          name="lock-closed-outline"
+          size={24}
+          color="#ccc"
+          style={styles.icon}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          placeholderTextColor="#ccc"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={true}
+        />
+      </View>
+      <TouchableOpacity style={styles.button} onPress={InicioSesionlogueo}>
+        <Text style={styles.buttonText}>Iniciar sesión</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.link}
+        onPress={() =>
+          console.log("Ir a la pantalla de recuperación de contraseña")
+        }
+      >
+        <Text style={styles.linkText}>¿Olvidaste tu contraseña?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.link} onPress={navigateToRegister}>
+        <Text style={styles.linkText}>Registrarse</Text>
+      </TouchableOpacity>
+    </LinearGradient>
   );
 };
 
