@@ -10,6 +10,7 @@
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
+
     },
     "ios": {
       "supportsTablet": true
@@ -18,10 +19,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.ReactNativeEconomyAPP"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a18e934a-f73e-4461-a872-db1d6306294b"
+      }
+    },
+    "scheme": "ReactNative-EconomyAPP"
   }
 }
