@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView 
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { inversions } from '../../constants';
 
 const IndexScreen = () => {
   const navigation = useNavigation();
@@ -13,6 +14,12 @@ const IndexScreen = () => {
 
   const navigateToProfile = () => {
     navigation.navigate('UserScreen');
+  };
+  const inversions = () => {
+    navigation.navigate('InversionsScreen');
+  };
+  const NavigateWallet = () => {
+    navigation.navigate('WalletScreen');
   };
 
   return (
@@ -54,13 +61,14 @@ const IndexScreen = () => {
               <Image source={require('../../assets/images/CryptoLogo.png')} style={styles.utilityImage} />
             </View>
           </View>
-          <View style={styles.card}>
+          
+          <TouchableOpacity style={styles.card} onPress={NavigateWallet}>
             <Image source={require('../../assets/images/WalletLogo.png')} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Your Wallet</Text>
               <Text style={styles.cardDescription}>Check Your Finance</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
       <View style={styles.navbar}>
@@ -68,7 +76,7 @@ const IndexScreen = () => {
           <Ionicons name="home-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
+        <TouchableOpacity style={styles.navButton}onPress={inversions}>
           <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Inversions</Text>
         </TouchableOpacity>

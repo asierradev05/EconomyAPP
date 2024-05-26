@@ -1,7 +1,3 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -46,7 +42,7 @@ const LoginScreen = (props) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert("Iniciando sesión", "Ingresando");
-      props.navigation.navigate("Home");
+     navigation.navigate("IndexScreen");
     } catch (error) {
       console.log(error);
       Alert.alert("Error", "Failed to sign in. Please check your credentials and try again.");
@@ -117,135 +113,65 @@ const LoginScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fffafa',
-  },
-  header: {
-    paddingTop: 50,
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 20,
-    paddingBottom: 20,
-    backgroundColor: '#1E2749',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
   },
-  greetingText: {
-    fontSize: 24,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    textAlign: 'center',
+  logoContainer: {
+    marginBottom: 20,
   },
-  questionText: {
-    fontSize: 18,
-    color: '#CCCCCC',
-    marginTop: 5,
-    textAlign: 'center',
+  logo: {
+    width: 150,
+    height: 150,
   },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+  title: {
+    fontSize: 28,
+    color: "#fff",
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
     borderRadius: 25,
-    marginTop: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    marginBottom: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    width: "100%",
   },
-  searchInput: {
-    flex: 1,
-    color: '#1E2749',
-  },
-  searchButton: {
-    padding: 10,
-  },
-  scrollContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
-  },
-  learningContainer: {
-    marginTop: 20,
-    backgroundColor: '#F5F5F5',
-    borderRadius: 15,
-    padding: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  learningTextContainer: {
-    flex: 1,
-  },
-  learningText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1E2749',
-  },
-  categoriesContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  categoriesText: {
-    fontSize: 14,
-    color: '#1E2749',
+  icon: {
     marginRight: 10,
   },
-  categoriesButton: {
-    backgroundColor: '#1E88E5',
+  input: {
+    flex: 1,
+    color: "#fff",
+    height: 40,
+  },
+  button: {
+    width: "100%",
+    backgroundColor: "#1E88E5",
     borderRadius: 25,
-    padding: 10,
+    paddingVertical: 15,
+    alignItems: "center",
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
   },
-  learningImage: {
-    width: 100,
-    height: 100,
-    marginLeft: 20,
-  },
-  utilitiesTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#1E2749',
-    marginTop: 20,
-  },
-  cardContainer: {
-    marginTop: 10,
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F5F5F5',
-    borderRadius: 15,
-    padding: 20,
-    marginTop: 10,
-    justifyContent: 'space-between', // Añadido para alinear elementos a los extremos
-  },
-  utilityImage: {
-    width: 100,
-    height: 100,
-  },
-  cardTextContainer: {
-    marginLeft: 8,
-  },
-  cardTitle: {
+  buttonText: {
+    color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1E2749',
+    fontWeight: "bold",
   },
-  cardDescription: {
-    fontSize: 14,
-    color: '#1E2749',
-    marginTop: 5,
+  link: {
+    marginBottom: 10,
   },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#E5E5E5',
-    backgroundColor: '#FFFFFF',
-  },
-  navButton: {
-    alignItems: 'center',
-  },
-  navText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#1E2749',
+  linkText: {
+    color: "#fff",
+    textDecorationLine: "underline",
   },
 });
 
-export default IndexScreen;
+export default LoginScreen;

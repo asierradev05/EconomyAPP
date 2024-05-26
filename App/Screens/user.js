@@ -3,19 +3,20 @@ import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, StatusBar 
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import { COLORS, SIZES } from '../../constants/theme';
+import InfoItem from '../../components/InfoItem';
+import SettingsItem from '../../components/SettingsItem';
 
 const UserScreen = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const pickImage = async () => {
-    // Solicitar permisos para acceder a la galería
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
       alert('Se requieren permisos para acceder a la galería.');
       return;
     }
 
-    // Seleccionar imagen desde la galería
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -29,11 +30,11 @@ const UserScreen = ({ navigation }) => {
   };
 
   return (
-    <LinearGradient colors={['#1E2749', '#283C63']} style={styles.container}>
+    <LinearGradient colors={[COLORS.primary, COLORS.secondary]} style={styles.container}>
       <StatusBar barStyle="light-content" />
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back-outline" size={24} color="#fff" />
+          <Ionicons name="arrow-back-outline" size={24} color={COLORS.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>User Profile</Text>
       </View>
@@ -51,37 +52,16 @@ const UserScreen = ({ navigation }) => {
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.infoTitle}>Account Information</Text>
-          <View style={styles.infoItem}>
-            <Ionicons name="mail-outline" size={24} color="#fff" />
-            <Text style={styles.infoText}>angel@example.com</Text>
-          </View>
-          <View style={styles.infoItem}>
-            <Ionicons name="call-outline" size={24} color="#fff" />
-            <Text style={styles.infoText}>+123 456 7890</Text>
-          </View>
-          <View style={styles.infoItem}>
-            <Ionicons name="location-outline" size={24} color="#fff" />
-            <Text style={styles.infoText}>San Francisco, CA</Text>
-          </View>
+          <InfoItem iconName="mail-outline" text="angel@example.com" />
+          <InfoItem iconName="call-outline" text="+123 456 7890" />
+          <InfoItem iconName="location-outline" text="San Francisco, CA" />
         </View>
         <View style={styles.settingsContainer}>
           <Text style={styles.settingsTitle}>Settings</Text>
-          <TouchableOpacity style={styles.settingsItem}>
-            <Ionicons name="notifications-outline" size={24} color="#fff" />
-            <Text style={styles.settingsText}>Notifications</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsItem}>
-            <Ionicons name="lock-closed-outline" size={24} color="#fff" />
-            <Text style={styles.settingsText}>Privacy</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsItem}>
-            <Ionicons name="color-palette-outline" size={24} color="#fff" />
-            <Text style={styles.settingsText}>Theme</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.settingsItem}>
-            <Ionicons name="log-out-outline" size={24} color="#fff" />
-            <Text style={styles.settingsText}>Logout</Text>
-          </TouchableOpacity>
+          <SettingsItem iconName="notifications-outline" text="Notifications" onPress={() => {}} />
+          <SettingsItem iconName="lock-closed-outline" text="Privacy" onPress={() => {}} />
+          <SettingsItem iconName="color-palette-outline" text="Theme" onPress={() => {}} />
+          <SettingsItem iconName="log-out-outline" text="Logout" onPress={() => {}} />
         </View>
       </ScrollView>
     </LinearGradient>
@@ -96,39 +76,39 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: '#1E2749',
+    paddingHorizontal: SIZES.padding,
+    paddingVertical: SIZES.base,
+    backgroundColor: COLORS.primary,
   },
   backButton: {
-    marginRight: 10,
+    marginRight: SIZES.base,
   },
   headerTitle: {
-    fontSize: 20,
-    color: '#fff',
+    fontSize: SIZES.font * 1.25,
+    color: COLORS.white,
     fontWeight: 'bold',
   },
   content: {
-    padding: 20,
+    padding: SIZES.padding,
   },
   profileContainer: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: SIZES.padding,
   },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: 10,
+    marginBottom: SIZES.base,
   },
   username: {
-    fontSize: 24,
+    fontSize: SIZES.font * 1.5,
     fontWeight: 'bold',
-    color: '#fff',
+    color: COLORS.white,
   },
   bio: {
-    fontSize: 16,
-    color: '#ccc',
+    fontSize: SIZES.font,
+    color: COLORS.lightGray,
     textAlign: 'center',
   },
   imageContainer: {
@@ -136,45 +116,22 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   infoContainer: {
-    marginBottom: 20,
+    marginBottom: SIZES.padding,
   },
   infoTitle: {
-    fontSize: 18,
+    fontSize: SIZES.font * 1.125,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 10,
-  },
-  infoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  infoText: {
-    fontSize: 16,
-    color: '#fff',
-    marginLeft: 10,
+    color: COLORS.white,
+    marginBottom: SIZES.base,
   },
   settingsContainer: {
-    marginBottom: 20,
+    marginBottom: SIZES.padding,
   },
   settingsTitle: {
-    fontSize: 18,
+    fontSize: SIZES.font * 1.125,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 10,
-  },
-  settingsItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    backgroundColor: '#1E2749',
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  settingsText: {
-    fontSize: 16,
-    color: '#fff',
-    marginLeft: 10,
+    color: COLORS.white,
+    marginBottom: SIZES.base,
   },
 });
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Animated, Easing, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, Image, Animated, Easing, StatusBar, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { COLORS, SIZES } from '../../constants/theme';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +24,7 @@ const RegisterScreen = () => {
   };
 
   const navigateToLogin = () => {
-    navigation.navigate('home');
+    navigation.navigate('Home');
   };
 
   useEffect(() => {
@@ -35,67 +37,45 @@ const RegisterScreen = () => {
   }, [animation]);
 
   return (
-    <LinearGradient colors={['#1E2749', '#283C63']} style={styles.container}>
+    <LinearGradient colors={[COLORS.primary, COLORS.secondary]} style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Animated.View style={[styles.logoContainer, { transform: [{ scale: animation }] }]}>
         <Image source={require('../../assets/images/LogoTrasparente.png')} style={styles.logo} />
       </Animated.View>
       <Text style={styles.title}>Registro</Text>
-      <View style={styles.inputContainer}>
-        <Ionicons name="person-outline" size={24} color="#ccc" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Nombre"
-          placeholderTextColor="#ccc"
-          value={name}
-          onChangeText={setName}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Ionicons name="person-outline" size={24} color="#ccc" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Apellido"
-          placeholderTextColor="#ccc"
-          value={lastName}
-          onChangeText={setLastName}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Ionicons name="mail-outline" size={24} color="#ccc" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#ccc"
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Ionicons name="lock-closed-outline" size={24} color="#ccc" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#ccc"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Ionicons name="call-outline" size={24} color="#ccc" style={styles.icon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Número de teléfono"
-          placeholderTextColor="#ccc"
-          value={phoneNumber}
-          onChangeText={setPhoneNumber}
-          keyboardType="numeric"
-        />
-      </View>
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Registrarse</Text>
-      </TouchableOpacity>
+      <CustomInput
+        iconName="person-outline"
+        placeholder="Nombre"
+        value={name}
+        onChangeText={setName}
+      />
+      <CustomInput
+        iconName="person-outline"
+        placeholder="Apellido"
+        value={lastName}
+        onChangeText={setLastName}
+      />
+      <CustomInput
+        iconName="mail-outline"
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <CustomInput
+        iconName="lock-closed-outline"
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      <CustomInput
+        iconName="call-outline"
+        placeholder="Número de teléfono"
+        value={phoneNumber}
+        onChangeText={setPhoneNumber}
+        keyboardType="numeric"
+      />
+      <CustomButton title="Registrarse" onPress={handleRegister} />
       <TouchableOpacity style={styles.link} onPress={navigateToLogin}>
         <Text style={styles.linkText}>Volver al inicio de sesión</Text>
       </TouchableOpacity>
@@ -108,61 +88,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingHorizontal: SIZES.padding,
   },
   logoContainer: {
-    marginBottom: 20,
+    marginBottom: SIZES.padding,
   },
   logo: {
     width: 150,
     height: 150,
   },
   title: {
-    fontSize: 28,
-    color: '#fff',
-    marginBottom: 20,
-    fontWeight: 'bold',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    borderRadius: 25,
-    marginBottom: 15,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    width: '100%',
-  },
-  icon: {
-    marginRight: 10,
-  },
-  input: {
-    flex: 1,
-    color: '#fff',
-    height: 40,
-  },
-  button: {
-    width: '100%',
-    backgroundColor: '#1E88E5',
-    borderRadius: 25,
-    paddingVertical: 15,
-    alignItems: 'center',
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
+    fontSize: SIZES.font * 1.75,
+    color: COLORS.white,
+    marginBottom: SIZES.padding,
     fontWeight: 'bold',
   },
   link: {
-    marginBottom: 10,
+    marginBottom: SIZES.base,
   },
   linkText: {
-    color: '#fff',
+    color: COLORS.white,
     textDecorationLine: 'underline',
   },
 });
