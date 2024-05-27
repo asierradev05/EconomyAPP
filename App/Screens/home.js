@@ -70,13 +70,13 @@ const LoginScreen = () => {
   const InicioSesionlogueo = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      Alert.alert("Iniciando sesión", "Ingresando");
+      Alert.alert("User signed in: ", "Signing");
       navigation.navigate("IndexScreen");
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
-      let errorMessage = "Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.";
+      let errorMessage = "Incorrect e-mail address or password. Please try again.";
       if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
-        errorMessage = "Correo electrónico o contraseña incorrectos. Por favor, inténtalo de nuevo.";
+        errorMessage = "Incorrect e-mail address or password. Please try again.";
       }
       Alert.alert("Error", errorMessage);
     }
@@ -127,13 +127,13 @@ const LoginScreen = () => {
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={InicioSesionlogueo}>
-        <Text style={styles.buttonText}>Iniciar sesión</Text>
+        <Text style={styles.buttonText}>Sign in</Text>
       </TouchableOpacity>
 
       <View style={styles.containerLogoGoogle}>
         <TouchableOpacity style={styles.googleButton} onPress={() => promptAsync()}>
           <Ionicons name="logo-google" size={24} color="#1E88E5" />
-          <Text style={styles.googleButtonText}>Ingresar con Google</Text>
+          <Text style={styles.googleButtonText}>Sign in with Google</Text>
         </TouchableOpacity>
       </View>
 
@@ -143,10 +143,10 @@ const LoginScreen = () => {
           console.log("Ir a la pantalla de recuperación de contraseña")
         }
       >
-        <Text style={styles.linkText}>¿Olvidaste tu contraseña?</Text>
+        <Text style={styles.linkText}>¿Forgot your password?</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.link} onPress={navigateToRegister}>
-        <Text style={styles.linkText}>Registrarse</Text>
+        <Text style={styles.linkText}>Register</Text>
       </TouchableOpacity>
     </LinearGradient>
   );

@@ -42,7 +42,7 @@ const RegisterScreen = () => {
       <Animated.View style={[styles.logoContainer, { transform: [{ scale: animation }] }]}>
         <Image source={require('../../assets/images/LogoTrasparente.png')} style={styles.logo} />
       </Animated.View>
-      <Text style={styles.title}>Registro</Text>
+      <Text style={styles.title}>Registration</Text>
       <CustomInput
         iconName="person-outline"
         placeholder="Nombre"
@@ -75,9 +75,9 @@ const RegisterScreen = () => {
         onChangeText={setPhoneNumber}
         keyboardType="numeric"
       />
-      <CustomButton title="Registrarse" onPress={handleRegister} />
+      <CustomButton title="Register Now" onPress={handleRegister} />
       <TouchableOpacity style={styles.link} onPress={navigateToLogin}>
-        <Text style={styles.linkText}>Volver al inicio de sesión</Text>
+        <Text style={styles.linkText}>Back to login</Text>
       </TouchableOpacity>
     </LinearGradient>
   );

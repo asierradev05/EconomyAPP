@@ -20,6 +20,9 @@ import RegisterScreen from "./App/Screens/RegisterScreen";
 import InversionesScreen from "./App/Screens/inversions";
 import InvestmentCoursesScreen from "./App/Screens/HowInvert";
 import WalletScreen from "./App/Screens/Wallet";
+import Categories from "./App/Screens/Categories";
+import LearnScreen from "./App/Screens/LearnScreen";
+import CoinDetail from "./App/Screens/CoinDetail";
 
 WebBrowser.maybeCompleteAuthSession()
 
@@ -75,6 +78,9 @@ const App = () => {
         <Stack.Screen name="InversionsScreen" component={InversionesScreen} />
         <Stack.Screen name="InvestmentCoursesScreen" component={InvestmentCoursesScreen} />
         <Stack.Screen name="WalletScreen" component={WalletScreen} />
+        <Stack.Screen name="CategoriesScreen" component={Categories} />
+        <Stack.Screen name="LeanScreen" component={LearnScreen} />
+        <Stack.Screen name="CoinDetailScreen" component={CoinDetail} />
       </Stack.Navigator>
       
     </NavigationContainer>

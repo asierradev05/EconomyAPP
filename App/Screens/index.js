@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { inversions } from '../../constants';
+import Categories from './Categories';
 
 const IndexScreen = () => {
   const navigation = useNavigation();
@@ -21,6 +22,13 @@ const IndexScreen = () => {
   const NavigateWallet = () => {
     navigation.navigate('WalletScreen');
   };
+  const NavigateCategories = () => {
+    navigation.navigate('CategoriesScreen');
+  };
+  const NavigateLeanScreen = () => {
+    navigation.navigate('LeanScreen');
+  };
+
 
   return (
     <View style={styles.container}>
@@ -40,7 +48,7 @@ const IndexScreen = () => {
             <Text style={styles.learningText}>Start Learning new Stuff</Text>
             <View style={styles.categoriesContainer}>
               <Text style={styles.categoriesText}>Categories</Text>
-              <TouchableOpacity style={styles.categoriesButton}>
+              <TouchableOpacity style={styles.categoriesButton} onPress={NavigateCategories}>
                 <Ionicons name="list-outline" size={24} color="#CCCCCC" />
               </TouchableOpacity>
             </View>
@@ -49,24 +57,26 @@ const IndexScreen = () => {
         </View>
         <Text style={styles.utilitiesTitle}>Your Utilities</Text>
         <View style={styles.cardContainer}>
-          <View style={styles.card}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View>
-                <TouchableOpacity style={styles.cardTextContainer} onPress={navigateToCryptos}>
-                  <Ionicons name="list-outline" size={24} color="#CCCCCC" />
-                  <Text style={styles.cardTitle}>Cryptos</Text>
-                  <Text style={styles.cardDescription}>Check The Latest Cryptos!</Text>
-                </TouchableOpacity>
-              </View>
-              <Image source={require('../../assets/images/CryptoLogo.png')} style={styles.utilityImage} />
+           <TouchableOpacity style={styles.card} onPress={navigateToCryptos}>
+            <Image source={require('../../assets/images/CryptoLogo.png')} style={styles.utilityImage} />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardTitle}>Cryptos</Text>
+              <Text style={styles.cardDescription}>Check Your Finance</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           
           <TouchableOpacity style={styles.card} onPress={NavigateWallet}>
             <Image source={require('../../assets/images/WalletLogo.png')} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Your Wallet</Text>
               <Text style={styles.cardDescription}>Check Your Finance</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card} onPress={NavigateLeanScreen}>
+            <Image source={require('../../assets/images/pngegg.png')} style={styles.utilityImage} />
+            <View style={styles.cardTextContainer}>
+              <Text style={styles.cardTitle}>Your Learning</Text>
+              <Text style={styles.cardDescription}>Check Your Learning</Text>
             </View>
           </TouchableOpacity>
         </View>
