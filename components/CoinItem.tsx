@@ -1,8 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
-const CoinItem = ({ coin }) => (
-  <TouchableOpacity style={styles.containerItem} activeOpacity={0.7}>
+interface Coin {
+  id: string;
+  name: string;
+  symbol: string;
+  image: string;
+  current_price: number;
+  price_change_percentage_24h: number;
+}
+
+interface CoinItemProps {
+  coin: Coin;
+  onPress: (coin: Coin) => void;
+}
+
+const CoinItem: React.FC<CoinItemProps> = ({ coin, onPress }) => (
+  <TouchableOpacity
+    style={styles.containerItem}
+    activeOpacity={0.7}
+    onPress={() => onPress(coin)}
+  >
     <View style={styles.coinName}>
       <Image source={{ uri: coin.image }} style={styles.image} />
       <View style={styles.containerNames}>
@@ -34,7 +52,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderRadius: 15,
     marginBottom: 10,
-    backgroundColor: "linear-gradient(to right, #fff, rgba(255, 255, 255, 0.7))", // Fondo con degradado
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   containerNames: {
     marginLeft: 10,

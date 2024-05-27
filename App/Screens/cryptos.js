@@ -47,9 +47,14 @@ const Cryptos = ({ navigation }) => {
 
   const handleScroll = (event) => {
     const currentOffset = event.nativeEvent.contentOffset.y;
-    // Si el usuario ha hecho scroll hacia arriba y ha llegado al principio de la lista, mostramos el campo de búsqueda
+   
     setSearchVisible(currentOffset <= 0);
   };
+
+  const handleCoinPress = (coin) => {
+    navigation.navigate('CoinDetailScreen', { coin });
+  };
+
   const renderHeader = () => (
     <View style={styles.header}>
       <TouchableOpacity
@@ -59,11 +64,8 @@ const Cryptos = ({ navigation }) => {
         <Ionicons name="arrow-back" size={24} color="#fff" />
       </TouchableOpacity>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Cryptos
-            <Text> </Text>
-        </Text>
-        <Text style={styles.subtitle}>The last prices in the Crypto Market
-        </Text>
+        <Text style={styles.title}>Cryptos</Text>
+        <Text style={styles.subtitle}>The last prices in the Crypto Market</Text>
       </View>
     </View>
   );
@@ -77,7 +79,7 @@ const Cryptos = ({ navigation }) => {
 
       {renderHeader()}
 
-      {searchVisible && ( // Mostrar el campo de búsqueda solo cuando es visible
+      {searchVisible && ( 
         <View style={styles.searchContainer}>
           <TextInput
             style={styles.searchInput}
@@ -88,25 +90,27 @@ const Cryptos = ({ navigation }) => {
         </View>
       )}
 
-      <FlatList
-        style={styles.list}
-        data={coins.filter(
-          (coin) =>
-            coin.name.toLowerCase().includes(search.toLowerCase()) ||
-            coin.symbol.toLowerCase().includes(search.toLowerCase())
-        )}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <CoinItem coin={item} />}
-        keyExtractor={(item) => item.id}
-        refreshing={refreshing}
-        onRefresh={async () => {
-          setRefreshing(true);
-          await loadData();
-          setRefreshing(false);
-        }}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-      />
+<FlatList
+  style={styles.list}
+  data={coins.filter(
+    (coin) =>
+      coin.name.toLowerCase().includes(search.toLowerCase()) ||
+      coin.symbol.toLowerCase().includes(search.toLowerCase())
+  )}
+  showsVerticalScrollIndicator={false}
+  renderItem={({ item }) => (
+    <CoinItem coin={item} onPress={handleCoinPress} />
+  )}
+  keyExtractor={(item) => item.id}
+  refreshing={refreshing}
+  onRefresh={async () => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  }}
+  onScroll={handleScroll}
+  scrollEventThrottle={16}
+/>
     </LinearGradient>
   );
 };
