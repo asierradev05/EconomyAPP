@@ -71,12 +71,14 @@ const App = () => {
         initialRouteName="Home"
       >
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="IndexScreen" component={IndexScreen} />
-        <Stack.Screen name="cryptosIndex" component={CryptosScreen} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        <Stack.Screen name="IndexScreen" component={IndexScreen} />
         <Stack.Screen name="UserScreen" component={UserScreen} />
+        <Stack.Screen name="cryptosIndex" component={CryptosScreen} />
+       
+    
         <Stack.Screen name="InversionsScreen" component={InversionesScreen} />
-        <Stack.Screen name="InvestmentCoursesScreen" component={InvestmentCoursesScreen} />
+        <Stack.Screen name="Investment Courses" component={InvestmentCoursesScreen} />
         <Stack.Screen name="WalletScreen" component={WalletScreen} />
         <Stack.Screen name="CategoriesScreen" component={Categories} />
         <Stack.Screen name="LeanScreen" component={LearnScreen} />

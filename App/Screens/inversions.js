@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -11,10 +11,17 @@ const InversionesScreen = () => {
     navigation.navigate(screenName);
   };
 
+  const sections = [
+    { name: 'Investment Courses', description: 'Access customized courses and tutorials about investments, tailored to your level of experience and preferences.', color: '#1E88E5', icon: 'school' },
+    { name: 'Portfolio Analysis', description: 'Get a detailed analysis of your investment portfolio, including diversification, performance, and optimization suggestions.', color: '#FF6F61', icon: 'stats-chart' },
+    { name: 'Financial News', description: 'Stay up-to-date with the latest financial news relevant to your investments, filtered according to your interests.', color: '#FFD166', icon: 'newspaper' },
+    { name: 'Investment Simulator', description: 'Experiment with different investment scenarios and visualize how they could impact your portfolio in the future.', color: '#06D6A0', icon: 'calculator' },
+    { name: 'Investor Community', description: 'Connect with other investors, share tips and ideas, and collaborate on joint investment projects.', color: '#E63946', icon: 'people' },
+    { name: 'Goals Tracking', description: 'Set and track your investment goals, receiving periodic reminders to stay on track.', color: '#118AB2', icon: 'clipboard' },
+  ];
+
   return (
     <LinearGradient colors={['#0A1931', '#150E56']} style={styles.container}>
-      <StatusBar backgroundColor="#0A1931" />
-
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
@@ -28,85 +35,22 @@ const InversionesScreen = () => {
         </View>
       </View>
 
-      <ScrollView style={styles.content}>
-        <TouchableOpacity
-          style={styles.section}
-          onPress={() => handleNavigate('InvestmentCoursesScreen')}
-        >
-          <Ionicons name="school" size={24} color="#fff" />
-          <View style={styles.sectionText}>
-            <Text style={styles.sectionTitle}>Investment Courses</Text>
-            <Text style={styles.sectionContent}>
-              Access customized courses and tutorials about investments, tailored to your level of experience and preferences.
-            </Text>
+      <View style={styles.content}>
+        {sections.map((section, index) => (
+          <View key={index} style={[styles.section, index % 2 === 0 ? styles.leftSection : styles.rightSection]}>
+            <TouchableOpacity
+              style={[styles.sectionButton, { backgroundColor: section.color }]}
+              onPress={() => handleNavigate(section.name)}
+            >
+              <Ionicons name={section.icon} size={24} color="#fff" />
+            </TouchableOpacity>
+            <View style={styles.sectionText}>
+              <Text style={styles.sectionName}>{section.name}</Text>
+              <Text style={styles.sectionDescription}>{section.description}</Text>
+            </View>
           </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.section}
-          onPress={() => handleNavigate('AnalisisCarteraScreen')}
-        >
-          <Ionicons name="stats-chart" size={24} color="#fff" />
-          <View style={styles.sectionText}>
-            <Text style={styles.sectionTitle}>Portfolio Analysis</Text>
-            <Text style={styles.sectionContent}>
-              Get a detailed analysis of your investment portfolio, including diversification, performance, and optimization suggestions.
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.section}
-          onPress={() => handleNavigate('NoticiasFinancierasScreen')}
-        >
-          <Ionicons name="newspaper" size={24} color="#fff" />
-          <View style={styles.sectionText}>
-            <Text style={styles.sectionTitle}>Financial News</Text>
-            <Text style={styles.sectionContent}>
-              Stay up-to-date with the latest financial news relevant to your investments, filtered according to your interests.
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.section}
-          onPress={() => handleNavigate('SimuladorInversionScreen')}
-        >
-          <Ionicons name="calculator" size={24} color="#fff" />
-          <View style={styles.sectionText}>
-            <Text style={styles.sectionTitle}>Investment Simulator</Text>
-            <Text style={styles.sectionContent}>
-              Experiment with different investment scenarios and visualize how they could impact your portfolio in the future.
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.section}
-          onPress={() => handleNavigate('ComunidadInversionistasScreen')}
-        >
-          <Ionicons name="people" size={24} color="#fff" />
-          <View style={styles.sectionText}>
-            <Text style={styles.sectionTitle}>Investor Community</Text>
-            <Text style={styles.sectionContent}>
-              Connect with other investors, share tips and ideas, and collaborate on joint investment projects.
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.section}
-          onPress={() => handleNavigate('SeguimientoObjetivosScreen')}
-        >
-          <Ionicons name="clipboard" size={24} color="#fff" />
-          <View style={styles.sectionText}>
-            <Text style={styles.sectionTitle}>Goals Tracking</Text>
-            <Text style={styles.sectionContent}>
-              Set and track your investment goals, receiving periodic reminders to stay on track.
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
+        ))}
+      </View>
     </LinearGradient>
   );
 };
@@ -114,15 +58,13 @@ const InversionesScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
+    paddingHorizontal: 20,
+    paddingTop: 40,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 40,
     paddingBottom: 20,
-    paddingHorizontal: 20,
   },
   backButton: {
     marginRight: 10,
@@ -141,32 +83,39 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   content: {
-    flex: 1,
-    width: '100%',
-    paddingHorizontal: 20,
-    paddingTop: 20,
+    marginTop: 20,
   },
   section: {
-    marginBottom: 20,
-    padding: 15,
-    borderRadius: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 20,
+  },
+  leftSection: {
+    justifyContent: 'flex-start',
+  },
+  rightSection: {
+    justifyContent: 'flex-end',
+  },
+  sectionButton: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionText: {
     flex: 1,
     marginLeft: 10,
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  sectionContent: {
+  sectionName: {
     fontSize: 14,
     color: '#fff',
+    fontWeight: 'bold',
     marginTop: 5,
+  },
+  sectionDescription: {
+    fontSize: 12,
+    color: '#fff',
   },
 });
 

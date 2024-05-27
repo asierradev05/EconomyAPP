@@ -56,15 +56,15 @@ const InvestmentScreen = () => {
         <Text style={styles.progressText}>{Math.round(progress * 100)}% Completo</Text>
       </View>
       <View style={styles.navbar}>
-        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('IndexScreen')}>
           <Ionicons name="home-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Investments')}>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('InversionsScreen')}>
           <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Inversiones</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('UserScreen')}>
           <Ionicons name="person-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Perfil</Text>
         </TouchableOpacity>
