@@ -59,7 +59,9 @@ const CoinDetail = ({ route, navigation }) => {
           <Text style={styles.progressTitle}>Progreso de Meta</Text>
           <ProgressBarAndroid styleAttr="Horizontal" color="#FFA500" indeterminate={false} progress={progress} />
         </View>
-        {/* Agrega más detalles aquí */}
+        <TouchableOpacity style={styles.buyButton} onPress={() => handleBuyCoin(coin.exchangeLink)}>
+          <Text style={styles.buyButtonText}>Comprar en Exchange</Text>
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -149,6 +151,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#333',
     marginBottom: 10,
+  },
+  buyButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  buyButton: {
+    backgroundColor: '#1E88E5',
+    borderRadius: 20,
+    paddingVertical: 10,
+    alignItems: 'center',
+    marginTop: 20,
   },
 });
 
