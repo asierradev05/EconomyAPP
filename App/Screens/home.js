@@ -14,16 +14,26 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import * as WebBrowser from "expo-web-browser";
+import * as Google from "expo-auth-session/providers/google";
+import {
+  GoogleAuthProvider,
+  signInWithCredential,
+  signInWithEmailAndPassword,
+  getAuth
+} from "firebase/auth";
+import { auth } from "../../credencials";
 
-import appFirebases from "../../credencials";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+WebBrowser.maybeCompleteAuthSession();
 
-const LoginScreen = (props) => {
-  const auth = getAuth(appFirebases);
-  const navigation = useNavigation();
+const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [animation] = useState(new Animated.Value(0));
+  const navigation = useNavigation();
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: "49068587417-lm5o70dh1pah1rsnpa96ag44q33n75ij.apps.googleusercontent.com",
+  });
 
   useEffect(() => {
     Animated.timing(animation, {
@@ -34,6 +44,25 @@ const LoginScreen = (props) => {
     }).start();
   }, [animation]);
 
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token } = response.params;
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(auth, credential)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          // Signed in
+          console.log("User signed in: ", user);
+          setUserInfo(user);
+          navigation.navigate("IndexScreen");
+        })
+        .catch((error) => {
+          console.log("Error signing in with Google: ", error);
+          Alert.alert("Error", "Failed to sign in with Google.");
+        });
+    }
+  }, [response]);
+
   const navigateToRegister = () => {
     navigation.navigate("RegisterScreen");
   };
@@ -42,12 +71,17 @@ const LoginScreen = (props) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       Alert.alert("Iniciando sesión", "Ingresando");
-     navigation.navigate("IndexScreen");
+      navigation.navigate("IndexScreen");
     } catch (error) {
-      console.log(error);
-      Alert.alert("Error", "Failed to sign in. Please check your credentials and try again.");
+      console.error("Error al iniciar sesión:", error);
+      let errorMessage = "Ocurrió un error al iniciar sesión. Por favor, inténtalo de nuevo.";
+      if (error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
+        errorMessage = "Correo electrónico o contraseña incorrectos. Por favor, inténtalo de nuevo.";
+      }
+      Alert.alert("Error", errorMessage);
     }
   };
+  
 
   return (
     <LinearGradient colors={["#1E2749", "#283C63"]} style={styles.container}>
@@ -95,6 +129,14 @@ const LoginScreen = (props) => {
       <TouchableOpacity style={styles.button} onPress={InicioSesionlogueo}>
         <Text style={styles.buttonText}>Iniciar sesión</Text>
       </TouchableOpacity>
+
+      <View style={styles.containerLogoGoogle}>
+        <TouchableOpacity style={styles.googleButton} onPress={() => promptAsync()}>
+          <Ionicons name="logo-google" size={24} color="#1E88E5" />
+          <Text style={styles.googleButtonText}>Ingresar con Google</Text>
+        </TouchableOpacity>
+      </View>
+
       <TouchableOpacity
         style={styles.link}
         onPress={() =>
@@ -171,6 +213,24 @@ const styles = StyleSheet.create({
   linkText: {
     color: "#fff",
     textDecorationLine: "underline",
+  },
+  containerLogoGoogle: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  googleButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFFFFF", // Fondo blanco
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25, // Bordes redondeados
+  },
+  googleButtonText: {
+    color: "#1E88E5", // Texto azul
+    fontSize: 18,
+    marginLeft: 10,
   },
 });
 

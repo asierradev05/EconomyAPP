@@ -7,10 +7,21 @@ import CryptosScreen from "./App/Screens/cryptos";
 import IndexScreen from "./App/Screens";
 import UserScreen from "./App/Screens/user";
 
+import * as WebBrowser from "expo-web-browser"
+import * as Google from "expo-auth-session/providers/google"
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithCredential,
+} from "firebase/auth"
+import { auth } from "./credencials";
+
 import RegisterScreen from "./App/Screens/RegisterScreen";
 import InversionesScreen from "./App/Screens/inversions";
 import InvestmentCoursesScreen from "./App/Screens/HowInvert";
 import WalletScreen from "./App/Screens/Wallet";
+
+WebBrowser.maybeCompleteAuthSession()
 
 const theme = {
   ...DefaultTheme,
@@ -23,6 +34,31 @@ const theme = {
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [userInfo, setUserInfo] = React.useState(null);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId : "49068587417-lm5o70dh1pah1rsnpa96ag44q33n75ij.apps.googleusercontent.com"
+  });
+
+  React.useEffect(() => {
+    if (response && response.type === "success" && response.params) {
+      const { id_token } = response.params;
+      if (id_token) {
+        const { credentials } = GoogleAuthProvider.credential(id_token);
+        signInWithCredential(auth, credentials)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            setUserInfo(user);
+            // ...
+          })
+          .catch((error) => {
+            // Handle errors
+            console.error("Error signing in with Google:", error);
+          });
+      }
+    }
+  }, [response]);
+
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
