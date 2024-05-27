@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { COLORS, SIZES } from '../../constants/theme';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -15,12 +16,15 @@ const RegisterScreen = () => {
   const animation = useState(new Animated.Value(0))[0];
   const navigation = useNavigation();
 
-  const handleRegister = () => {
-    console.log('Email:', email);
-    console.log('Contraseña:', password);
-    console.log('Nombre:', name);
-    console.log('Apellido:', lastName);
-    console.log('Número de teléfono:', phoneNumber);
+  const handleRegister = async () => {
+    const userData = { email, password, name, lastName, phoneNumber };
+    try {
+      await AsyncStorage.setItem('userData', JSON.stringify(userData));
+      console.log('Datos del usuario guardados correctamente en AsyncStorage', userData);
+      navigation.navigate('Home');
+    } catch (error) {
+      console.error('Error al guardar los datos del usuario en AsyncStorage:', error);
+    }
   };
 
   const navigateToLogin = () => {
@@ -45,13 +49,13 @@ const RegisterScreen = () => {
       <Text style={styles.title}>Registration</Text>
       <CustomInput
         iconName="person-outline"
-        placeholder="Nombre"
+        placeholder="Name"
         value={name}
         onChangeText={setName}
       />
       <CustomInput
         iconName="person-outline"
-        placeholder="Apellido"
+        placeholder="LastName"
         value={lastName}
         onChangeText={setLastName}
       />
@@ -70,7 +74,7 @@ const RegisterScreen = () => {
       />
       <CustomInput
         iconName="call-outline"
-        placeholder="Número de teléfono"
+        placeholder="Number Phone"
         value={phoneNumber}
         onChangeText={setPhoneNumber}
         keyboardType="numeric"
@@ -92,6 +96,11 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     marginBottom: SIZES.padding,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
   },
   logo: {
     width: 150,
@@ -102,6 +111,9 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     marginBottom: SIZES.padding,
     fontWeight: 'bold',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
   link: {
     marginBottom: SIZES.base,

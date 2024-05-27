@@ -10,11 +10,11 @@ const InvestmentScreen = () => {
   const [visitedSections, setVisitedSections] = useState(new Set());
 
   const investments = [
-    { name: 'Inversiones Inmobiliarias', color: '#8E44AD', icon: 'home-outline' },
-    { name: 'Inversiones en Tecnología', color: '#E74C3C', icon: 'laptop-outline' },
-    { name: 'Inversiones en Agricultura', color: '#27AE60', icon: 'leaf-outline' },
-    { name: 'Inversiones en Educación', color: '#3498DB', icon: 'school-outline' },
-    { name: 'Otros', color: '#F1C40F', icon: 'ellipsis-horizontal-outline' }
+    { name: 'Real Estate Investments', color: '#8E44AD', icon: 'home-outline' },
+    { name: 'Technology Investments', color: '#E74C3C', icon: 'laptop-outline' },
+    { name: 'Agriculture Investments', color: '#27AE60', icon: 'leaf-outline' },
+    { name: 'Education Investments', color: '#3498DB', icon: 'school-outline' },
+    { name: 'Others', color: '#F1C40F', icon: 'ellipsis-horizontal-outline' }
   ];
 
   const handlePress = (index) => {
@@ -30,7 +30,7 @@ const InvestmentScreen = () => {
     <View style={styles.container}>
         
       <LinearGradient colors={['#1E2749', '#283C63']} style={styles.header}>
-        <Text style={styles.headerText}>Inversiones</Text>
+        <Text style={styles.headerText}>Investments</Text>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
@@ -39,7 +39,7 @@ const InvestmentScreen = () => {
         </TouchableOpacity>
       </LinearGradient>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.subHeader}>Selecciona cómo quieres invertir</Text>
+        <Text style={styles.subHeader}>Select how you want to invest</Text>
         {investments.map((investment, index) => (
           <TouchableOpacity
             key={index}
@@ -53,7 +53,7 @@ const InvestmentScreen = () => {
       </ScrollView>
       <View style={styles.progressBarContainer}>
         <View style={[styles.progressBar, { width: `${progress * 100}%` }]} />
-        <Text style={styles.progressText}>{Math.round(progress * 100)}% Completo</Text>
+        <Text style={styles.progressText}>{Math.round(progress * 100)}% Complete</Text>
       </View>
       <View style={styles.navbar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('IndexScreen')}>
@@ -62,11 +62,11 @@ const InvestmentScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('InversionsScreen')}>
           <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
-          <Text style={styles.navText}>Inversiones</Text>
+          <Text style={styles.navText}>Investments</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('UserScreen')}>
           <Ionicons name="person-outline" size={28} color="#1E88E5" />
-          <Text style={styles.navText}>Perfil</Text>
+          <Text style={styles.navText}>Profile</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fffafa',
   },
   header: {
-    paddingTop: 50,
+    paddingTop: 10,
     paddingHorizontal: 20,
     paddingBottom: 20,
     borderBottomLeftRadius: 20,
@@ -90,6 +90,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: 'bold',
     textAlign: 'center',
+    alignItems: 'center'
+    ,
   },
   scrollContainer: {
     paddingHorizontal: 20,

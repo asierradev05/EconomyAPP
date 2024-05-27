@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const WalletScreen = () => {
   const navigation = useNavigation();
-  const [balance, setBalance] = useState(1000); // Saldo inicial de ejemplo
+  const [balance, setBalance] = useState(0); // Saldo inicial de ejemplo
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('');
   const [transactions, setTransactions] = useState([]);
@@ -86,7 +86,7 @@ const WalletScreen = () => {
             style={styles.input}
             placeholder="Amount"
             value={amount}
-            onChangeText={setAmount}
+            onChangeText={text => setAmount(text.replace(/[^0-9]/g, ''))}
             keyboardType="numeric"
           />
           <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
@@ -100,7 +100,7 @@ const WalletScreen = () => {
             style={styles.input}
             placeholder="Amount"
             value={amount}
-            onChangeText={setAmount}
+            onChangeText={text => setAmount(text.replace(/[^0-9]/g, ''))}
             keyboardType="numeric"
           />
           <TouchableOpacity style={styles.receiveButton} onPress={handleReceive}>
@@ -141,87 +141,88 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   balanceContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  balanceTitle: {
-    fontSize: 18,
-    color: '#fff',
-    marginBottom: 10,
-  },
-  balanceAmount: {
-    fontSize: 24,
-    color: '#fff',
-  },
-  transactionsContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  transactionsTitle: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  transaction: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  transactionDetails: {
-    marginLeft: 10,
-  },
-  transactionType: {
-    fontSize: 16,
-    color: '#fff',
-  },
-  transactionAmount: {
-    fontSize: 14,
-    color: '#fff',
-  },
-  transactionTimestamp: {
-    fontSize: 12,
-    color: '#fff',
-  },
-  actions: {
-    marginBottom: 20,
-  },
-  actionTitle: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  input: {
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  sendButton: {
-    backgroundColor: '#1E88E5',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  sendButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
-  receiveButton: {
-    backgroundColor: '#1E88E5',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  receiveButtonText: {
-    color: '#fff',
-    fontSize: 16,
-  },
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  padding: 20,
+  borderRadius: 10,
+  marginBottom: 20,
+},
+balanceTitle: {
+  fontSize: 18,
+  color: '#fff',
+  marginBottom: 10,
+},
+balanceAmount: {
+  fontSize: 24,
+  color: '#fff',
+},
+transactionsContainer: {
+  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  padding: 20,
+  borderRadius: 10,
+  marginBottom: 20,
+},
+transactionsTitle: {
+  fontSize: 18,
+  color: '#fff',
+  fontWeight: 'bold',
+  marginBottom: 10,
+},
+transaction: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginBottom: 10,
+},
+transactionDetails: {
+  marginLeft: 10,
+},
+transactionType: {
+  fontSize: 16,
+  color: '#fff',
+},
+transactionAmount: {
+  fontSize: 14,
+  color: '#fff',
+},
+transactionTimestamp: {
+  fontSize: 12,
+  color: '#fff',
+},
+actions: {
+  marginBottom: 20,
+},
+actionTitle: {
+  fontSize: 18,
+  color: '#fff',
+  fontWeight: 'bold',
+  marginBottom: 10,
+},
+input: {
+  backgroundColor: '#fff',
+  padding: 10,
+  borderRadius: 5,
+  marginBottom: 10,
+},
+sendButton: {
+  backgroundColor: '#1E88E5',
+  padding: 10,
+  borderRadius: 5,
+  alignItems: 'center',
+},
+sendButtonText: {
+  color: '#fff',
+  fontSize: 16,
+},
+receiveButton: {
+  backgroundColor: '#1E88E5',
+  padding: 10,
+  borderRadius: 5,
+  alignItems: 'center',
+},
+receiveButtonText: {
+  color: '#fff',
+  fontSize: 16,
+},
 });
 
 export default WalletScreen;
+

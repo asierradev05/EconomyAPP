@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS, SIZES } from '../../constants/theme';
 import InfoItem from '../../components/InfoItem';
 import SettingsItem from '../../components/SettingsItem';
 
 const UserScreen = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [userData, setUserData] = useState({});
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -29,16 +31,32 @@ const UserScreen = ({ navigation }) => {
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = await AsyncStorage.getItem('userData');
+        if (user !== null) {
+          setUserData(JSON.parse(user));
+        }
+      } catch (error) {
+        console.error('Error al recuperar los datos del usuario de AsyncStorage:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
-    <LinearGradient colors={[COLORS.primary, COLORS.secondary]} style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back-outline" size={24} color={COLORS.white} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>User Profile</Text>
-      </View>
-      <ScrollView contentContainerStyle={styles.content}>
+    <View style={styles.container}>
+      <LinearGradient colors={['#1E2749', '#283C63']} style={styles.header}>
+        <StatusBar barStyle="light-content" />
+        <View style={styles.headerContent}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="arrow-back-outline" size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>User Profile</Text>
+        </View>
+      </LinearGradient>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.profileContainer}>
           <TouchableOpacity onPress={pickImage} style={styles.imageContainer}>
             {selectedImage ? (
@@ -47,14 +65,23 @@ const UserScreen = ({ navigation }) => {
               <Image source={require('../../assets/images/LogoTrasparente.png')} style={styles.avatar} />
             )}
           </TouchableOpacity>
-          <Text style={styles.username}>Angel</Text>
+          <Text style={styles.username}>{userData.name} {userData.lastName}</Text>
           <Text style={styles.bio}>Crypto Enthusiast | Finance Guru | Tech Lover</Text>
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.infoTitle}>Account Information</Text>
-          <InfoItem iconName="mail-outline" text="angel@example.com" />
-          <InfoItem iconName="call-outline" text="+123 456 7890" />
-          <InfoItem iconName="location-outline" text="San Francisco, CA" />
+          <View style={styles.infoItem}>
+            <Ionicons name="mail-outline" size={20} color="#1E2749" />
+            <Text style={styles.infoText}>{userData.email}</Text>
+          </View>
+          <View style={styles.infoItem}>
+            <Ionicons name="call-outline" size={20} color="#1E2749" />
+            <Text style={styles.infoText}>{userData.phoneNumber}</Text>
+          </View>
+          <View style={styles.infoItem}>
+            <Ionicons name="location-outline" size={20} color="#1E2749" />
+            <Text style={styles.infoText}>San Francisco, CA</Text>
+          </View>
         </View>
         <View style={styles.settingsContainer}>
           <Text style={styles.settingsTitle}>Settings</Text>
@@ -64,74 +91,115 @@ const UserScreen = ({ navigation }) => {
           <SettingsItem iconName="log-out-outline" text="Logout" onPress={() => {}} />
         </View>
       </ScrollView>
-    </LinearGradient>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: StatusBar.currentHeight || 0,
+    backgroundColor: '#fffafa',
   },
   header: {
+    paddingTop: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    backgroundColor: '#1E2749',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  headerContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: SIZES.padding,
-    paddingVertical: SIZES.base,
-    backgroundColor: COLORS.primary,
   },
   backButton: {
-    marginRight: SIZES.base,
+    marginRight: 10,
   },
   headerTitle: {
-    fontSize: SIZES.font * 1.25,
-    color: COLORS.white,
+    fontSize: 24,
+    color: '#FFFFFF',
     fontWeight: 'bold',
   },
-  content: {
-    padding: SIZES.padding,
+  scrollContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   profileContainer: {
     alignItems: 'center',
-    marginBottom: SIZES.padding,
+    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  imageContainer: {
+    marginBottom: 10,
   },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: SIZES.base,
+    borderColor: '#1E88E5',
+    borderWidth: 2,
   },
   username: {
-    fontSize: SIZES.font * 1.5,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: COLORS.white,
+    color: '#1E2749',
+    marginBottom: 5,
   },
   bio: {
-    fontSize: SIZES.font,
-    color: COLORS.lightGray,
+    fontSize: 16,
+    color: '#666',
     textAlign: 'center',
-  },
-  imageContainer: {
-    borderRadius: 50,
-    overflow: 'hidden',
+    fontStyle: 'italic',
   },
   infoContainer: {
-    marginBottom: SIZES.padding,
+    marginBottom: 20,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   infoTitle: {
-    fontSize: SIZES.font * 1.125,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: COLORS.white,
-    marginBottom: SIZES.base,
+    color: '#1E2749',
+    marginBottom: 10,
+  },
+  infoItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  infoText: {
+    marginLeft: 10,
+    fontSize: 16,
+    color: '#1E2749',
   },
   settingsContainer: {
-    marginBottom: SIZES.padding,
+    padding: 20,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   settingsTitle: {
-    fontSize: SIZES.font * 1.125,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: COLORS.white,
-    marginBottom: SIZES.base,
+    color: '#1E2749',
+    marginBottom: 10,
   },
 });
 
