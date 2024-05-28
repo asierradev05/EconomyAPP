@@ -6,6 +6,7 @@ import { COLORS, SIZES } from '../../constants/theme';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import images from '../../constants/images';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -17,13 +18,19 @@ const RegisterScreen = () => {
   const navigation = useNavigation();
 
   const handleRegister = async () => {
+    // Validar datos de entrada antes de registrar al usuario
+    if (!name || !lastName || !email || !password || !phoneNumber) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
     const userData = { email, password, name, lastName, phoneNumber };
     try {
       await AsyncStorage.setItem('userData', JSON.stringify(userData));
-      console.log('Datos del usuario guardados correctamente en AsyncStorage', userData);
+      console.log('User data saved successfully in AsyncStorage', userData);
       navigation.navigate('Home');
     } catch (error) {
-      console.error('Error al guardar los datos del usuario en AsyncStorage:', error);
+      console.error('Error saving user data to AsyncStorage:', error);
     }
   };
 
@@ -44,7 +51,7 @@ const RegisterScreen = () => {
     <LinearGradient colors={[COLORS.primary, COLORS.secondary]} style={styles.container}>
       <StatusBar barStyle="light-content" />
       <Animated.View style={[styles.logoContainer, { transform: [{ scale: animation }] }]}>
-        <Image source={require('../../assets/images/LogoTrasparente.png')} style={styles.logo} />
+        <Image source={images.logos.logoTransparente} style={styles.logo} />
       </Animated.View>
       <Text style={styles.title}>Registration</Text>
       <CustomInput
@@ -55,7 +62,7 @@ const RegisterScreen = () => {
       />
       <CustomInput
         iconName="person-outline"
-        placeholder="LastName"
+        placeholder="Last Name"
         value={lastName}
         onChangeText={setLastName}
       />
@@ -74,7 +81,7 @@ const RegisterScreen = () => {
       />
       <CustomInput
         iconName="call-outline"
-        placeholder="Number Phone"
+        placeholder="Phone Number"
         value={phoneNumber}
         onChangeText={setPhoneNumber}
         keyboardType="numeric"

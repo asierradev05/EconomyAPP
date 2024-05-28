@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { Inversions } from '../../constants/common'; // Actualiza la importación de Inversions
 import Categories from './Categories';
+import images from '../../constants/images';
 
 const IndexScreen = () => {
   const navigation = useNavigation();
@@ -57,26 +58,26 @@ const IndexScreen = () => {
               </TouchableOpacity>
             </View>
           </View>
-          <Image source={require('../../assets/images/ImagenMuchacha.png')} style={styles.learningImage} />
+          <Image source={images.other.imagenMuchacha} style={styles.learningImage} />
         </View>
         <Text style={styles.utilitiesTitle}>Your Utilities</Text>
         <View style={styles.cardContainer}>
           <TouchableOpacity style={styles.card} onPress={navigateToCryptos}>
-            <Image source={require('../../assets/images/CryptoLogo.png')} style={styles.utilityImage} />
+            <Image source={images.logos.cryptoLogo} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Cryptos</Text>
               <Text style={styles.cardDescription}>Check Your Finance</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.card} onPress={navigateToWallet}>
-            <Image source={require('../../assets/images/WalletLogo.png')} style={styles.utilityImage} />
+            <Image source={images.logos.walletLogo} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Your Wallet</Text>
               <Text style={styles.cardDescription}>Check Your Finance</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity style={styles.card} onPress={navigateToLeanScreen}>
-            <Image source={require('../../assets/images/pngegg.png')} style={styles.utilityImage} />
+            <Image source={images.icons.LearnLogo} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Your Learning</Text>
               <Text style={styles.cardDescription}>Check Your Learning</Text>

@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../constants/theme';
 
-const SettingsItem = ({ iconName, text, onPress }) => {
+const SettingsItem = ({ iconName = 'md-settings', text = 'Settings', onPress }) => {
   return (
     <TouchableOpacity style={styles.settingsItem} onPress={onPress}>
       <Ionicons name={iconName} size={24} color={COLORS.white} />

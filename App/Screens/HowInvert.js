@@ -48,7 +48,7 @@ const InvestmentCoursesScreen = () => {
           onPress={() => handleNavigate('Curso2Screen')}
         >
           <Image
-            source={require('../../assets/images/InvestmentSraegies.jpg')}
+            source={require('../../assets/images/InvestmentStrategies.jpg')}
             style={styles.courseImage}
           />
           <View style={styles.courseInfo}>

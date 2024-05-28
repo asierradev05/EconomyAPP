@@ -3,7 +3,14 @@ import { View, TextInput, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../constants/theme';
 
-const CustomInput = ({ iconName, placeholder, value, onChangeText, secureTextEntry, keyboardType }) => {
+const CustomInput = ({ 
+  iconName = 'md-information-circle', 
+  placeholder = 'Placeholder', 
+  value, 
+  onChangeText, 
+  secureTextEntry = false, 
+  keyboardType = 'default' 
+}) => {
   return (
     <View style={styles.inputContainer}>
       <Ionicons name={iconName} size={24} color={COLORS.lightGray} style={styles.icon} />

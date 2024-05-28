@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, SIZES } from '../constants/theme';
 
-const InfoItem = ({ iconName, text }) => {
+const InfoItem = ({ iconName = 'md-information-circle', text = 'Information' }) => {
   return (
     <View style={styles.infoItem}>
       <Ionicons name={iconName} size={24} color={COLORS.white} />
