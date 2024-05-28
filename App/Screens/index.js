@@ -1,9 +1,10 @@
+// App/Screens/index.js
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
-import { inversions } from '../../constants';
+import { Inversions } from '../../constants/common'; // Actualiza la importación de Inversions
 import Categories from './Categories';
 
 const IndexScreen = () => {
@@ -16,19 +17,22 @@ const IndexScreen = () => {
   const navigateToProfile = () => {
     navigation.navigate('UserScreen');
   };
-  const inversions = () => {
+  
+  const navigateToInversions = () => { // Renombrar la función para evitar conflictos
     navigation.navigate('InversionsScreen');
   };
-  const NavigateWallet = () => {
+
+  const navigateToWallet = () => {
     navigation.navigate('WalletScreen');
   };
-  const NavigateCategories = () => {
+
+  const navigateToCategories = () => {
     navigation.navigate('CategoriesScreen');
   };
-  const NavigateLeanScreen = () => {
+
+  const navigateToLeanScreen = () => {
     navigation.navigate('LeanScreen');
   };
-
 
   return (
     <View style={styles.container}>
@@ -48,7 +52,7 @@ const IndexScreen = () => {
             <Text style={styles.learningText}>Start Learning new Stuff</Text>
             <View style={styles.categoriesContainer}>
               <Text style={styles.categoriesText}>Categories</Text>
-              <TouchableOpacity style={styles.categoriesButton} onPress={NavigateCategories}>
+              <TouchableOpacity style={styles.categoriesButton} onPress={navigateToCategories}>
                 <Ionicons name="list-outline" size={24} color="#CCCCCC" />
               </TouchableOpacity>
             </View>
@@ -57,22 +61,21 @@ const IndexScreen = () => {
         </View>
         <Text style={styles.utilitiesTitle}>Your Utilities</Text>
         <View style={styles.cardContainer}>
-           <TouchableOpacity style={styles.card} onPress={navigateToCryptos}>
+          <TouchableOpacity style={styles.card} onPress={navigateToCryptos}>
             <Image source={require('../../assets/images/CryptoLogo.png')} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Cryptos</Text>
               <Text style={styles.cardDescription}>Check Your Finance</Text>
             </View>
           </TouchableOpacity>
-          
-          <TouchableOpacity style={styles.card} onPress={NavigateWallet}>
+          <TouchableOpacity style={styles.card} onPress={navigateToWallet}>
             <Image source={require('../../assets/images/WalletLogo.png')} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Your Wallet</Text>
               <Text style={styles.cardDescription}>Check Your Finance</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.card} onPress={NavigateLeanScreen}>
+          <TouchableOpacity style={styles.card} onPress={navigateToLeanScreen}>
             <Image source={require('../../assets/images/pngegg.png')} style={styles.utilityImage} />
             <View style={styles.cardTextContainer}>
               <Text style={styles.cardTitle}>Your Learning</Text>
@@ -86,7 +89,7 @@ const IndexScreen = () => {
           <Ionicons name="home-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Home</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}onPress={inversions}>
+        <TouchableOpacity style={styles.navButton} onPress={navigateToInversions}>
           <Ionicons name="stats-chart-outline" size={28} color="#1E88E5" />
           <Text style={styles.navText}>Inversions</Text>
         </TouchableOpacity>

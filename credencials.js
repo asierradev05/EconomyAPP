@@ -1,9 +1,8 @@
-// ./services/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAuth, getReactNativePersistence } from 'firebase/auth';
+import { initializeAuth, getReactNativePersistence, createUserWithEmailAndPassword } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { getDatabase } from 'firebase/database';
 
-// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyCt8F1BfgYkCo5rMONogbklfx9DqLfbQRY",
   authDomain: "economyapp-a3a6c.firebaseapp.com",
@@ -14,12 +13,10 @@ const firebaseConfig = {
   measurementId: "G-XN9JS2W47K"
 };
 
-// Inicializar Firebase App
 const app = initializeApp(firebaseConfig);
-
-// Obtener la instancia de autenticación de Firebase
-const auth = getAuth(app, {
+const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage)
 });
+const database = getDatabase(app);
 
-export { app, auth };
+export { app, auth, database, createUserWithEmailAndPassword };
