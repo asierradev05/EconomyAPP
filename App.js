@@ -7,15 +7,6 @@ import CryptosScreen from "./App/Screens/cryptos";
 import IndexScreen from "./App/Screens";
 import UserScreen from "./App/Screens/user";
 
-import * as WebBrowser from "expo-web-browser"
-import * as Google from "expo-auth-session/providers/google"
-import {
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signInWithCredential,
-} from "firebase/auth"
-import { auth } from "./credencials";
-
 import RegisterScreen from "./App/Screens/RegisterScreen";
 import InversionesScreen from "./App/Screens/inversions";
 import InvestmentCoursesScreen from "./App/Screens/HowInvert";
@@ -24,7 +15,11 @@ import Categories from "./App/Screens/Categories";
 import LearnScreen from "./App/Screens/LearnScreen";
 import CoinDetail from "./App/Screens/CoinDetail";
 
-WebBrowser.maybeCompleteAuthSession()
+import GoogleAuth from "./constants/googleAuth"; // Importa el componente GoogleAuth
+
+import * as WebBrowser from "expo-web-browser";
+
+WebBrowser.maybeCompleteAuthSession();
 
 const theme = {
   ...DefaultTheme,
@@ -37,33 +32,14 @@ const theme = {
 const Stack = createStackNavigator();
 
 const App = () => {
+  // Estado para almacenar la información del usuario
   const [userInfo, setUserInfo] = React.useState(null);
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId : "49068587417-lm5o70dh1pah1rsnpa96ag44q33n75ij.apps.googleusercontent.com"
-  });
-
-  React.useEffect(() => {
-    if (response && response.type === "success" && response.params) {
-      const { id_token } = response.params;
-      if (id_token) {
-        const { credentials } = GoogleAuthProvider.credential(id_token);
-        signInWithCredential(auth, credentials)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            setUserInfo(user);
-            // ...
-          })
-          .catch((error) => {
-            // Handle errors
-            console.error("Error signing in with Google:", error);
-          });
-      }
-    }
-  }, [response]);
 
   return (
     <NavigationContainer theme={theme}>
+      {/* Componente para gestionar la autenticación de Google */}
+      <GoogleAuth />
+      {/* Definición de las pantallas */}
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -75,16 +51,13 @@ const App = () => {
         <Stack.Screen name="IndexScreen" component={IndexScreen} />
         <Stack.Screen name="UserScreen" component={UserScreen} />
         <Stack.Screen name="cryptosIndex" component={CryptosScreen} />
-       
-    
+        <Stack.Screen name="CoinDetailScreen" component={CoinDetail} />
+        <Stack.Screen name="CategoriesScreen" component={Categories} />
+        <Stack.Screen name="WalletScreen" component={WalletScreen} />
+        <Stack.Screen name="LeanScreen" component={LearnScreen} />
         <Stack.Screen name="InversionsScreen" component={InversionesScreen} />
         <Stack.Screen name="Investment Courses" component={InvestmentCoursesScreen} />
-        <Stack.Screen name="WalletScreen" component={WalletScreen} />
-        <Stack.Screen name="CategoriesScreen" component={Categories} />
-        <Stack.Screen name="LeanScreen" component={LearnScreen} />
-        <Stack.Screen name="CoinDetailScreen" component={CoinDetail} />
       </Stack.Navigator>
-      
     </NavigationContainer>
   );
 };
