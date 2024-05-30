@@ -10,25 +10,25 @@ const InvestmentScreen = () => {
   const [visitedSections, setVisitedSections] = useState(new Set());
 
   const investments = [
-    { name: 'Real Estate Investments', color: '#8E44AD', icon: 'home-outline' },
-    { name: 'Technology Investments', color: '#E74C3C', icon: 'laptop-outline' },
-    { name: 'Agriculture Investments', color: '#27AE60', icon: 'leaf-outline' },
-    { name: 'Education Investments', color: '#3498DB', icon: 'school-outline' },
-    { name: 'Others', color: '#F1C40F', icon: 'ellipsis-horizontal-outline' }
+    { name: 'Real Estate Investments', color: '#8E44AD', icon: 'home-outline', screen: 'RealEstateInvestment' },
+    { name: 'Technology Investments', color: '#E74C3C', icon: 'laptop-outline', screen: 'TechnologyInvestment' },
+    { name: 'Agriculture Investments', color: '#27AE60', icon: 'leaf-outline', screen: 'AgricultureInvestment' },
+    { name: 'Education Investments', color: '#3498DB', icon: 'school-outline', screen: 'EducationInvestment' },
+    { name: 'Others', color: '#F1C40F', icon: 'ellipsis-horizontal-outline', screen: 'OthersInvestment' },
   ];
 
-  const handlePress = (index) => {
+  const handlePress = (index, screen) => {
     if (!visitedSections.has(index)) {
       const newVisitedSections = new Set(visitedSections);
       newVisitedSections.add(index);
       setVisitedSections(newVisitedSections);
       setProgress(newVisitedSections.size / investments.length);
     }
+    navigation.navigate(screen);
   };
 
   return (
     <View style={styles.container}>
-        
       <LinearGradient colors={['#1E2749', '#283C63']} style={styles.header}>
         <Text style={styles.headerText}>Investments</Text>
         <TouchableOpacity
@@ -44,7 +44,7 @@ const InvestmentScreen = () => {
           <TouchableOpacity
             key={index}
             style={[styles.card, { backgroundColor: investment.color }]}
-            onPress={() => handlePress(index)}
+            onPress={() => handlePress(index, investment.screen)}
           >
             <Ionicons name={investment.icon} size={32} color="#fff" style={styles.icon} />
             <Text style={styles.cardText}>{investment.name}</Text>
@@ -90,8 +90,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: 'bold',
     textAlign: 'center',
-    alignItems: 'center'
-    ,
+    alignItems: 'center',
   },
   scrollContainer: {
     paddingHorizontal: 20,

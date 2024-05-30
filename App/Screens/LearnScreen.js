@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, ProgressBarAndroid } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView, ProgressBarAndroid, TextInput } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -11,12 +11,24 @@ const LearnScreen = () => {
     { title: 'Introduction to Stock Market', points: 5000, completed: false },
     { title: 'Understanding Mutual Funds', points: 1000, completed: false }
   ]);
+  const [newTask, setNewTask] = useState(''); // State to hold the new task input
+
+  const addTask = () => {
+    if (newTask.trim() !== '') { // Ensure the task is not empty
+      const newActivities = [...activities, { title: newTask, points: 0, completed: false }];
+      setActivities(newActivities);
+      setNewTask(''); // Clear the input after adding the task
+    }
+  };
 
   return (
     <View style={styles.container}>
       <LinearGradient colors={['#1E2749', '#283C63']} style={styles.header}>
-        <TouchableOpacity style={styles.menuButton}>
-          <Ionicons name="menu-outline" size={28} color="#FFFFFF" />
+      <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="arrow-back" size={24} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Inicio</Text>
         <TouchableOpacity style={styles.notificationButton}>
@@ -41,10 +53,16 @@ const LearnScreen = () => {
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Próximo objetivo</Text>
-          <TouchableOpacity style={styles.addButton}>
+          <TouchableOpacity style={styles.addButton} onPress={addTask}>
             <Ionicons name="add-outline" size={24} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
+        <TextInput
+          style={styles.input}
+          placeholder="Agregar nueva tarea"
+          value={newTask}
+          onChangeText={setNewTask}
+        />
         <View style={styles.card}>
           <View style={styles.cardContent}>
             <Ionicons name="stats-chart-outline" size={32} color="#FFA500" />
@@ -66,7 +84,7 @@ const LearnScreen = () => {
             <Ionicons name="checkmark-circle-outline" size={32} color="#FFA500" />
             <View style={styles.activityTextContainer}>
               <Text style={styles.activityTitle}>{activity.title}</Text>
-              <Text style={styles.activitySubtitle}>{`Tu padre te ha asignado`}</Text>
+              <Text style={styles.activitySubtitle}>{`Your Asigned`}</Text>
             </View>
             <TouchableOpacity style={styles.completeButton}>
               <Ionicons name="checkmark-outline" size={24} color={activity.completed ? '#27AE60' : '#E5E5E5'} />
@@ -74,7 +92,6 @@ const LearnScreen = () => {
           </View>
         ))}
       </ScrollView>
-   
     </View>
   );
 };
@@ -85,7 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fffafa',
   },
   header: {
-    paddingTop: 50,
+    paddingTop: 20,
     paddingHorizontal: 20,
     paddingBottom: 20,
     borderBottomLeftRadius: 20,
@@ -188,6 +205,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     marginTop: 5,
+  },
+  input: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 20,
   },
   activityCard: {
     backgroundColor: '#fff',
