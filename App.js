@@ -15,6 +15,12 @@ import Categories from "./App/Screens/Categories";
 import LearnScreen from "./App/Screens/LearnScreen";
 import CoinDetail from "./App/Screens/CoinDetail";
 
+import RealEstateInvestmentScreen from "./App/Screens/RealEstateInvestmentScreen";
+import TechnologyInvestmentScreen from "./App/Screens/TechnologyInvestmentScreen";
+import AgricultureInvestmentScreen from "./App/Screens/AgricultureInvestmentScreen";
+import EducationInvestmentScreen from "./App/Screens/EducationInvestmentScreen";
+import OthersInvestmentScreen from "./App/Screens/OthersInvestmentScreen";
+
 import GoogleAuth from "./constants/googleAuth"; // Importa el componente GoogleAuth
 
 import * as WebBrowser from "expo-web-browser";
@@ -57,6 +63,13 @@ const App = () => {
         <Stack.Screen name="LeanScreen" component={LearnScreen} />
         <Stack.Screen name="InversionsScreen" component={InversionesScreen} />
         <Stack.Screen name="Investment Courses" component={InvestmentCoursesScreen} />
+
+        {/* Agregar las nuevas pantallas de inversión */}
+        <Stack.Screen name="RealEstateInvestment" component={RealEstateInvestmentScreen} />
+        <Stack.Screen name="TechnologyInvestment" component={TechnologyInvestmentScreen} />
+        <Stack.Screen name="AgricultureInvestment" component={AgricultureInvestmentScreen} />
+        <Stack.Screen name="EducationInvestment" component={EducationInvestmentScreen} />
+        <Stack.Screen name="OthersInvestment" component={OthersInvestmentScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
